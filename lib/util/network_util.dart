@@ -15,11 +15,11 @@ class NetworkUtil {
   }
 
   static Future<Response> get({
-    String url,
-    @required String path,
+    String? url,
+    @required String? path,
   }) async {
     try {
-      final Response res = await _dio.get((url ?? baseurl) + path);
+      final Response res = await _dio.get((url ?? baseurl) + path!);
 
       debugPrint("CALLING HEADERS " + res.requestOptions.headers.toString());
       debugPrint("CALIING METHOD " + res.requestOptions.method.toString());
@@ -44,10 +44,10 @@ class NetworkUtil {
         debugPrint("Error HEADERS " + e.requestOptions.headers.toString());
         debugPrint("Error METHOD " + e.requestOptions.method.toString());
         debugPrint("Error CALLING " + e.requestOptions.path.toString());
-        debugPrint("Error Status Code " + e.response.statusCode.toString());
+        debugPrint("Error Status Code " + e.response!.statusCode.toString());
         debugPrint(
-            "Error Response " + e.response.data['error_code'].toString());
-        debugPrint('Error Message ' + e.response.data['message'].toString());
+            "Error Response " + e.response!.data['error_code'].toString());
+        debugPrint('Error Message ' + e.response!.data['message'].toString());
         debugPrint(
             "Error QUERY " + e.requestOptions.queryParameters.toString());
       } else {

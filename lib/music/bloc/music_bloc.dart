@@ -9,12 +9,13 @@ part 'music_event.dart';
 part 'music_state.dart';
 
 class MusicBloc extends Bloc<MusicEvent, MusicState> {
-  MusicRepo musicRepo = MusicRepo();
+  MusicRepo? musicRepo = MusicRepo();
   ArtistMusicModel artistMusicModel = ArtistMusicModel();
   MusicBloc({this.musicRepo}) : super(MusicInitial()) {
     on<MusicAttempt>((event, emit) async {
       try {
-        var response = await musicRepo.getArtistMusicRepo(search: event.search);
+        var response =
+            await musicRepo?.getArtistMusicRepo(search: event.search);
         if (response is ArtistMusicModel) {
           emit(MusicLoaded(artistMusicModel: response));
         } else {

@@ -17,15 +17,15 @@ class MusicLoading extends MusicState {
 }
 
 class MusicLoaded extends MusicState {
-  final ArtistMusicModel artistMusicModel;
+  final ArtistMusicModel? artistMusicModel;
   MusicLoaded({this.artistMusicModel});
   @override
-  List<Object> get props => [artistMusicModel];
+  List<Object> get props => [artistMusicModel!];
 }
 
 class MusicError extends MusicState {
-  final String error;
+  final String? error;
   MusicError({this.error});
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [error!];
 }

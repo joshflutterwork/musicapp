@@ -2,10 +2,10 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class ShowButtonWidget extends StatefulWidget {
-  final String imageUrl;
-  final String urlSong;
-  final AudioPlayer player;
-  final String title;
+  final String? imageUrl;
+  final String? urlSong;
+  final AudioPlayer? player;
+  final String? title;
 
   ShowButtonWidget({this.player, this.imageUrl, this.urlSong, this.title});
   @override
@@ -29,13 +29,13 @@ class _ShowButtonWidgetState extends State<ShowButtonWidget> {
           Slider.adaptive(
               activeColor: Colors.black,
               inactiveColor: Colors.grey[350],
-              value: position?.inMilliseconds?.toDouble() ?? 0.0,
-              max: musicLength?.inMilliseconds?.toDouble() ?? 0.0,
+              value: position?.inMilliseconds.toDouble() ?? 0.0,
+              max: musicLength?.inMilliseconds.toDouble() ?? 0.0,
               onChanged: (value) {
                 seekToSec(value.toInt());
               }),
           Text(
-            widget.title,
+            widget.title!,
             style: TextStyle(color: Colors.white),
           )
         ],
@@ -43,17 +43,17 @@ class _ShowButtonWidgetState extends State<ShowButtonWidget> {
     );
   }
 
-  Duration musicLength;
-  Duration position;
+  Duration? musicLength;
+  Duration? position;
   final AudioPlayer _player = AudioPlayer();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _player.setUrl(widget.urlSong);
+    _player.setUrl(widget.urlSong!);
 
-    _player.play(widget.urlSong);
+    _player.play(widget.urlSong!);
     playing = true;
 
     _player.onDurationChanged.listen((d) => setState(() => musicLength = d));
@@ -101,14 +101,14 @@ class _ShowButtonWidgetState extends State<ShowButtonWidget> {
                     height: 60,
                     decoration: BoxDecoration(color: Colors.grey),
                     child: Image.network(
-                      widget.imageUrl,
+                      widget.imageUrl!,
                       fit: BoxFit.fill,
                     ),
                   ),
                 ),
                 slider(),
                 Text(
-                  "${position?.inMinutes}:${position?.inSeconds?.remainder(60)}",
+                  "${position?.inMinutes}:${position?.inSeconds.remainder(60)}",
                   style: const TextStyle(fontSize: 18.0, color: Colors.grey),
                 ),
                 IconButton(
@@ -121,7 +121,7 @@ class _ShowButtonWidgetState extends State<ShowButtonWidget> {
 
                         setState(() {
                           _player.play(
-                            widget.urlSong,
+                            widget.urlSong!,
                           );
                           // playBtn = Icons.pause;
                           playing = true;

@@ -7,8 +7,8 @@ abstract class MusicEvent extends Equatable {
 }
 
 class MusicAttempt extends MusicEvent {
-  String search;
+  String? search;
   MusicAttempt({this.search});
   @override
-  List<Object> get props => [search];
+  List<Object> get props => [search!];
 }

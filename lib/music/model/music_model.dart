@@ -1,6 +1,6 @@
 class ArtistMusicModel {
-  int resultCount;
-  List<Results> results;
+  int? resultCount;
+  List<Results>? results;
 
   ArtistMusicModel({this.resultCount, this.results});
 
@@ -9,67 +9,67 @@ class ArtistMusicModel {
     if (json['results'] != null) {
       results = <Results>[];
       json['results'].forEach((v) {
-        results.add(Results.fromJson(v));
+        results!.add(new Results.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['resultCount'] = resultCount;
-    if (results != null) {
-      data['results'] = results.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['resultCount'] = this.resultCount;
+    if (this.results != null) {
+      data['results'] = this.results!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Results {
-  String wrapperType;
-  String kind;
-  int artistId;
-  int collectionId;
-  int trackId;
-  String artistName;
-  String collectionName;
-  String trackName;
-  String collectionCensoredName;
-  String trackCensoredName;
-  String collectionArtistName;
-  String artistViewUrl;
-  String collectionViewUrl;
-  String trackViewUrl;
-  String previewUrl;
-  String artworkUrl30;
-  String artworkUrl60;
-  String artworkUrl100;
-  double collectionPrice;
-  double trackPrice;
-  String releaseDate;
-  String collectionExplicitness;
-  String trackExplicitness;
-  int discCount;
-  int discNumber;
-  int trackCount;
-  int trackNumber;
-  int trackTimeMillis;
-  String country;
-  String currency;
-  String primaryGenreName;
-  bool isStreamable;
-  int collectionArtistId;
-  int amgArtistId;
-  String description;
-  String collectionArtistViewUrl;
-  double trackRentalPrice;
-  double collectionHdPrice;
-  double trackHdPrice;
-  double trackHdRentalPrice;
-  String contentAdvisoryRating;
-  String shortDescription;
-  String longDescription;
-  bool hasITunesExtras;
-  String copyright;
+  String? wrapperType;
+  String? kind;
+  int? artistId;
+  int? collectionId;
+  int? trackId;
+  String? artistName;
+  String? collectionName;
+  String? trackName;
+  String? collectionCensoredName;
+  String? trackCensoredName;
+  String? collectionArtistName;
+  String? artistViewUrl;
+  String? collectionViewUrl;
+  String? trackViewUrl;
+  String? previewUrl;
+  String? artworkUrl30;
+  String? artworkUrl60;
+  String? artworkUrl100;
+  double? collectionPrice;
+  double? trackPrice;
+  String? releaseDate;
+  String? collectionExplicitness;
+  String? trackExplicitness;
+  int? discCount;
+  int? discNumber;
+  int? trackCount;
+  int? trackNumber;
+  int? trackTimeMillis;
+  String? country;
+  String? currency;
+  String? primaryGenreName;
+  bool? isStreamable;
+  int? collectionArtistId;
+  String? collectionArtistViewUrl;
+  double? trackRentalPrice;
+  double? collectionHdPrice;
+  double? trackHdPrice;
+  double? trackHdRentalPrice;
+  String? contentAdvisoryRating;
+  String? shortDescription;
+  String? longDescription;
+  bool? hasITunesExtras;
+  int? amgArtistId;
+  String? description;
+  String? copyright;
 
   Results(
       {this.wrapperType,
@@ -105,8 +105,6 @@ class Results {
       this.primaryGenreName,
       this.isStreamable,
       this.collectionArtistId,
-      this.amgArtistId,
-      this.description,
       this.collectionArtistViewUrl,
       this.trackRentalPrice,
       this.collectionHdPrice,
@@ -116,6 +114,8 @@ class Results {
       this.shortDescription,
       this.longDescription,
       this.hasITunesExtras,
+      this.amgArtistId,
+      this.description,
       this.copyright});
 
   Results.fromJson(Map<String, dynamic> json) {
@@ -152,67 +152,70 @@ class Results {
     primaryGenreName = json['primaryGenreName'];
     isStreamable = json['isStreamable'];
     collectionArtistId = json['collectionArtistId'];
-    amgArtistId = json['amgArtistId'];
-    description = json['description'];
     collectionArtistViewUrl = json['collectionArtistViewUrl'];
-    trackRentalPrice = json['trackRentalPrice'];
-    collectionHdPrice = json['collectionHdPrice'];
-    trackHdPrice = json['trackHdPrice'];
-    trackHdRentalPrice = json['trackHdRentalPrice'];
+    trackRentalPrice =
+        double.parse(json['trackRentalPrice']?.toString() ?? "0.0");
+    collectionHdPrice =
+        double.parse(json['collectionHdPrice']?.toString() ?? "0.0");
+    trackHdPrice = double.parse(json['trackHdPrice']?.toString() ?? "0.0");
+    trackHdRentalPrice =
+        double.parse(json['trackHdRentalPrice']?.toString() ?? "0.0");
     contentAdvisoryRating = json['contentAdvisoryRating'];
     shortDescription = json['shortDescription'];
     longDescription = json['longDescription'];
     hasITunesExtras = json['hasITunesExtras'];
+    amgArtistId = json['amgArtistId'];
+    description = json['description'];
     copyright = json['copyright'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['wrapperType'] = wrapperType;
-    data['kind'] = kind;
-    data['artistId'] = artistId;
-    data['collectionId'] = collectionId;
-    data['trackId'] = trackId;
-    data['artistName'] = artistName;
-    data['collectionName'] = collectionName;
-    data['trackName'] = trackName;
-    data['collectionCensoredName'] = collectionCensoredName;
-    data['trackCensoredName'] = trackCensoredName;
-    data['collectionArtistName'] = collectionArtistName;
-    data['artistViewUrl'] = artistViewUrl;
-    data['collectionViewUrl'] = collectionViewUrl;
-    data['trackViewUrl'] = trackViewUrl;
-    data['previewUrl'] = previewUrl;
-    data['artworkUrl30'] = artworkUrl30;
-    data['artworkUrl60'] = artworkUrl60;
-    data['artworkUrl100'] = artworkUrl100;
-    data['collectionPrice'] = collectionPrice;
-    data['trackPrice'] = trackPrice;
-    data['releaseDate'] = releaseDate;
-    data['collectionExplicitness'] = collectionExplicitness;
-    data['trackExplicitness'] = trackExplicitness;
-    data['discCount'] = discCount;
-    data['discNumber'] = discNumber;
-    data['trackCount'] = trackCount;
-    data['trackNumber'] = trackNumber;
-    data['trackTimeMillis'] = trackTimeMillis;
-    data['country'] = country;
-    data['currency'] = currency;
-    data['primaryGenreName'] = primaryGenreName;
-    data['isStreamable'] = isStreamable;
-    data['collectionArtistId'] = collectionArtistId;
-    data['amgArtistId'] = amgArtistId;
-    data['description'] = description;
-    data['collectionArtistViewUrl'] = collectionArtistViewUrl;
-    data['trackRentalPrice'] = trackRentalPrice;
-    data['collectionHdPrice'] = collectionHdPrice;
-    data['trackHdPrice'] = trackHdPrice;
-    data['trackHdRentalPrice'] = trackHdRentalPrice;
-    data['contentAdvisoryRating'] = contentAdvisoryRating;
-    data['shortDescription'] = shortDescription;
-    data['longDescription'] = longDescription;
-    data['hasITunesExtras'] = hasITunesExtras;
-    data['copyright'] = copyright;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['wrapperType'] = this.wrapperType;
+    data['kind'] = this.kind;
+    data['artistId'] = this.artistId;
+    data['collectionId'] = this.collectionId;
+    data['trackId'] = this.trackId;
+    data['artistName'] = this.artistName;
+    data['collectionName'] = this.collectionName;
+    data['trackName'] = this.trackName;
+    data['collectionCensoredName'] = this.collectionCensoredName;
+    data['trackCensoredName'] = this.trackCensoredName;
+    data['collectionArtistName'] = this.collectionArtistName;
+    data['artistViewUrl'] = this.artistViewUrl;
+    data['collectionViewUrl'] = this.collectionViewUrl;
+    data['trackViewUrl'] = this.trackViewUrl;
+    data['previewUrl'] = this.previewUrl;
+    data['artworkUrl30'] = this.artworkUrl30;
+    data['artworkUrl60'] = this.artworkUrl60;
+    data['artworkUrl100'] = this.artworkUrl100;
+    data['collectionPrice'] = this.collectionPrice;
+    data['trackPrice'] = this.trackPrice;
+    data['releaseDate'] = this.releaseDate;
+    data['collectionExplicitness'] = this.collectionExplicitness;
+    data['trackExplicitness'] = this.trackExplicitness;
+    data['discCount'] = this.discCount;
+    data['discNumber'] = this.discNumber;
+    data['trackCount'] = this.trackCount;
+    data['trackNumber'] = this.trackNumber;
+    data['trackTimeMillis'] = this.trackTimeMillis;
+    data['country'] = this.country;
+    data['currency'] = this.currency;
+    data['primaryGenreName'] = this.primaryGenreName;
+    data['isStreamable'] = this.isStreamable;
+    data['collectionArtistId'] = this.collectionArtistId;
+    data['collectionArtistViewUrl'] = this.collectionArtistViewUrl;
+    data['trackRentalPrice'] = this.trackRentalPrice;
+    data['collectionHdPrice'] = this.collectionHdPrice;
+    data['trackHdPrice'] = this.trackHdPrice;
+    data['trackHdRentalPrice'] = this.trackHdRentalPrice;
+    data['contentAdvisoryRating'] = this.contentAdvisoryRating;
+    data['shortDescription'] = this.shortDescription;
+    data['longDescription'] = this.longDescription;
+    data['hasITunesExtras'] = this.hasITunesExtras;
+    data['amgArtistId'] = this.amgArtistId;
+    data['description'] = this.description;
+    data['copyright'] = this.copyright;
     return data;
   }
 }

@@ -1,8 +1,10 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicapp/component_widget/dialogs_widget.dart';
 import 'package:musicapp/music/bloc/music_bloc.dart';
+import 'package:musicapp/music/repo/music_repo.dart';
 import 'package:musicapp/music/widget/show_button.dart';
 
 class MusicPage extends StatefulWidget {
@@ -11,11 +13,11 @@ class MusicPage extends StatefulWidget {
 }
 
 class _MusicPageState extends State<MusicPage> {
-  MusicBloc musicBloc = MusicBloc();
+  MusicBloc musicBloc = MusicBloc(musicRepo: MusicRepo());
 
   final AudioPlayer _player = AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
 
-  int currentIndex;
+  int? currentIndex;
 
   final TextEditingController _searchController = TextEditingController();
 
@@ -29,6 +31,8 @@ class _MusicPageState extends State<MusicPage> {
     // TODO: implement dispose
 
     _searchController.dispose();
+    _player.dispose();
+    super.dispose();
   }
 
   @override
@@ -81,8 +85,8 @@ class _MusicPageState extends State<MusicPage> {
                     onEditingComplete: () {
                       musicBloc
                           .add(MusicAttempt(search: _searchController.text));
-                      Navigator.of(context).pop();
-                      currentIndex = null;
+                      // Navigator.of(context).pop();
+                      // currentIndex = null;
                     },
                   ),
                   decoration: BoxDecoration(boxShadow: [
@@ -102,7 +106,7 @@ class _MusicPageState extends State<MusicPage> {
                       await DialogWidget().loading(context);
                     }
                     if (state is MusicLoaded) {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                     }
                   },
                   child: BlocBuilder<MusicBloc, MusicState>(
@@ -110,12 +114,15 @@ class _MusicPageState extends State<MusicPage> {
                     builder: (context, state) {
                       if (state is MusicLoaded)
                       // ignore: curly_braces_in_flow_control_structures
-                      if (state.artistMusicModel.results.length > 0)
+                      if (state.artistMusicModel!.results!.length > 0)
                         // ignore: curly_braces_in_flow_control_structures
-                        return Expanded(
+                        return Container(
+                          height: 500,
+                          width: double.infinity,
                           child: ListView.builder(
                               shrinkWrap: true,
-                              itemCount: state.artistMusicModel.results.length,
+                              itemCount:
+                                  state.artistMusicModel?.results!.length ?? 0,
                               itemBuilder: (_, index) {
                                 // ignore: avoid_unnecessary_containers
                                 return InkWell(
@@ -130,13 +137,13 @@ class _MusicPageState extends State<MusicPage> {
                                         context: context,
                                         builder: (context) {
                                           return ShowButtonWidget(
-                                            imageUrl: state.artistMusicModel
-                                                .results[index].artworkUrl100,
+                                            imageUrl: state.artistMusicModel!
+                                                .results![index].artworkUrl100!,
                                             player: _player,
-                                            urlSong: state.artistMusicModel
-                                                .results[index].previewUrl,
-                                            title: state.artistMusicModel
-                                                .results[index].trackName,
+                                            urlSong: state.artistMusicModel!
+                                                .results![index].previewUrl!,
+                                            title: state.artistMusicModel!
+                                                .results![index].trackName!,
                                           );
                                         });
                                   },
@@ -157,8 +164,8 @@ class _MusicPageState extends State<MusicPage> {
                                           decoration: const BoxDecoration(
                                               color: Colors.red),
                                           child: Image.network(
-                                            state.artistMusicModel
-                                                .results[index].artworkUrl100,
+                                            state.artistMusicModel!
+                                                .results![index].artworkUrl100!,
                                             fit: BoxFit.fitWidth,
                                           ),
                                         ),
@@ -177,8 +184,8 @@ class _MusicPageState extends State<MusicPage> {
                                                 width: 150,
                                                 child: Text(
                                                   state
-                                                          .artistMusicModel
-                                                          .results[index]
+                                                          .artistMusicModel!
+                                                          .results![index]
                                                           .trackName ??
                                                       "",
                                                   maxLines: 2,
@@ -195,10 +202,9 @@ class _MusicPageState extends State<MusicPage> {
                                                 width: 100,
                                                 child: Text(
                                                   state
-                                                          .artistMusicModel
-                                                          .results[index]
-                                                          .artistName ??
-                                                      "",
+                                                      .artistMusicModel!
+                                                      .results![index]
+                                                      .artistName!,
                                                   maxLines: 2,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -213,8 +219,8 @@ class _MusicPageState extends State<MusicPage> {
                                                 width: 100,
                                                 child: Text(
                                                   state
-                                                          .artistMusicModel
-                                                          .results[index]
+                                                          .artistMusicModel!
+                                                          .results![index]
                                                           .collectionName ??
                                                       "",
                                                   maxLines: 2,

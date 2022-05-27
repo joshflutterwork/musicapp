@@ -30,13 +30,13 @@ void main() {
       final dynamic responseJson = json.decode(MockString.musicApiSuccess);
       resultModel = ArtistMusicModel.fromJson(responseJson);
 
-      when(musicRepo!.getArtistMusicRepo(search: "Jackson"))
+      when(musicRepo?.getArtistMusicRepo(search: "Jackson"))
           .thenAnswer((_) => Future.value(resultModel));
 
-      expectLater(musicBloc!.stream,
+      expectLater(musicBloc?.stream,
           emitsInOrder([MusicLoaded(artistMusicModel: resultModel)]));
 
-      musicBloc!.add(MusicAttempt(search: "Jackson"));
+      musicBloc?.add(MusicAttempt(search: "Jackson"));
     });
 
     test('Music API Length Zero', () {
@@ -46,13 +46,13 @@ void main() {
       final dynamic responseJson = json.decode(MockString.musicApiLengthZero);
       resultModel = ArtistMusicModel.fromJson(responseJson);
 
-      when(musicRepo!.getArtistMusicRepo(search: "ksajdhkjas"))
+      when(musicRepo?.getArtistMusicRepo(search: "ksajdhkjas"))
           .thenAnswer((_) => Future.value(resultModel));
 
-      expectLater(musicBloc!.stream,
+      expectLater(musicBloc?.stream,
           emitsInOrder([MusicLoaded(artistMusicModel: resultModel)]));
 
-      musicBloc!.add(MusicAttempt(search: "ksajdhkjas"));
+      musicBloc?.add(MusicAttempt(search: "ksajdhkjas"));
     });
   });
 }
